@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index Teste</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Map!
+{% endblock title %}
+
+{% block content %}
     <h1>Projeto Final - BD II - 2020.2 - IFPB</h1>
-</body>
-</html>
+
+    <form action="" method="POST" autocomplete="off">
+        {% csrf_token %}
+        {{ form }}
+        <button onclick="window.location.href=" type="submit" class="btn btn-primary">Search!</button>
+    </form>
+    <br>
+
+    <div>
+        <svg id="vb" width="500" height="500" viewBox="{{ viewbox }}">
+           <path stroke="gray" stroke-width="0.02" id="estado" d="{{ svgEstado }}"/>
+            <path stroke="white" stroke-width="0.01" id="municipio" d="{{ svgMunicipio }}"/>
+        </svg>
+    </div>
+
+
+{% endblock content %}}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario
+from .models import Usuario#, Local
 
 
 class ListandoUsuarios(admin.ModelAdmin):
@@ -12,3 +12,4 @@ class ListandoUsuarios(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Usuario, ListandoUsuarios)
+#admin.site.register(Local)
