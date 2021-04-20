@@ -10,6 +10,8 @@ from .forms import MunicipioForm
 # class IndexPageView(TemplateView):
 #     template_name = 'index.html'
 
+def register(request):
+    return render(request, 'register.html')
 
 def index(request):
     form = MunicipioForm(request.POST or None)
@@ -20,7 +22,7 @@ def index(request):
     if form.is_valid():
         input = form.cleaned_data.get('municipio')
 
-        municipio = get_object_or_404(Municipios, nome=input, sigla_uf='PB')
+        municipio = get_object_or_404(Municipios, nome__icontains=input, sigla_uf='PB') #__icontains = ILIKE
         estado = get_object_or_404(Estados, sigla_uf=municipio.sigla_uf)
 
         cursor = connection.cursor()
