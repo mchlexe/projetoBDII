@@ -4,3 +4,19 @@
     background-position: center;
     background-size: cover;
 }
+
+label{
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+input{
+    flex: 0 0 50%;
+    max-width: 50%;
+    font-size: 0.8rem;
+}
+
+.helptext, li{
+    display: none;
+}

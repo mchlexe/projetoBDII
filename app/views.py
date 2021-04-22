@@ -10,11 +10,11 @@ from .forms import MunicipioForm
 # class IndexPageView(TemplateView):
 #     template_name = 'index.html'
 
-def register(request):
-    return render(request, 'register.html')
-
-def login(request):
-    return render(request, 'login.html')
+# def register(request):
+#     return render(request, 'register.html')
+#
+# def login(request):
+#     return render(request, 'login.html')
 
 def index(request):
     form = MunicipioForm(request.POST or None)
