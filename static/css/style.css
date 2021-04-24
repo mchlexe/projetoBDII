@@ -1,6 +1,24 @@
+.bg-gradient-primary{
+    background-color: #33974f !important;
+    background-image: none !important;
+}
+
+.login {
+    margin-left: 10em;
+}
+
+.btn-primary {
+    background-color: #33974f !important;
+    border-color: #3bb161 !important;
+}
+
+a {
+    color: #c63437 !important;
+}
+
 .bg-image{
-    background: url("https://thumbs.dreamstime.com/b/os-colaboradores-team-tarefas-semanais-planeando-da-programa%C3%A7%C3%A3o-na-placa-tarefa-conceito-liso-do-vetor-dos-trabalhos-de-equipa-e-109364079.jpg");
-    /*background-color: #00E676;*/
+    /*background: url("https://thumbs.dreamstime.com/b/os-colaboradores-team-tarefas-semanais-planeando-da-programa%C3%A7%C3%A3o-na-placa-tarefa-conceito-liso-do-vetor-dos-trabalhos-de-equipa-e-109364079.jpg");
+    background-color: #00E676;*/
     background-position: center;
     background-size: cover;
 }

@@ -16,7 +16,7 @@ from .forms import MunicipioForm
 # def login(request):
 #     return render(request, 'login.html')
 
-def index(request):
+def mapView(request):
     form = MunicipioForm(request.POST or None)
     viewbox = ['']
     svg_municipio = ['']
@@ -48,24 +48,24 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def municipio(request, param):
-    municipio = get_object_or_404(Municipios, nome=param)
-    estado = get_object_or_404(Estados, sigla_uf=municipio.sigla_uf)
-
-    cursor = connection.cursor()
-    cursor.execute("SELECT getViewBox(%s)", [estado.nome])
-    viewbox = cursor.fetchone()
-
-    cursor.execute("SELECT ST_AsSVG(MUN.GEOM) FROM MUNICIPIOS MUN WHERE MUN.NOME = %s", [municipio.nome])
-    svg_municipio = cursor.fetchone()
-
-    cursor.execute("SELECT ST_AsSVG(EST.GEOM) FROM ESTADOS EST WHERE EST.NOME = %s", [estado.nome])
-    svg_estado = cursor.fetchone()
-
-    context = {
-        'svgMunicipio': svg_municipio[0],
-        'svgEstado': svg_estado[0],
-        'viewbox': viewbox[0],
-    }
-
-    return render(request, 'index.html', context)
+# def municipio(request, param):
+#     municipio = get_object_or_404(Municipios, nome=param)
+#     estado = get_object_or_404(Estados, sigla_uf=municipio.sigla_uf)
+#
+#     cursor = connection.cursor()
+#     cursor.execute("SELECT getViewBox(%s)", [estado.nome])
+#     viewbox = cursor.fetchone()
+#
+#     cursor.execute("SELECT ST_AsSVG(MUN.GEOM) FROM MUNICIPIOS MUN WHERE MUN.NOME = %s", [municipio.nome])
+#     svg_municipio = cursor.fetchone()
+#
+#     cursor.execute("SELECT ST_AsSVG(EST.GEOM) FROM ESTADOS EST WHERE EST.NOME = %s", [estado.nome])
+#     svg_estado = cursor.fetchone()
+#
+#     context = {
+#         'svgMunicipio': svg_municipio[0],
+#         'svgEstado': svg_estado[0],
+#         'viewbox': viewbox[0],
+#     }
+#
+#     return render(request, 'index.html', context)
