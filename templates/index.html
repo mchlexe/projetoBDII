@@ -46,17 +46,8 @@
                                 <button type="submit" class="btn btn-primary">Pesquisar</button></div>
                             </form>
 
+                        </div>
                 </div>
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <form action="" method="POST" autocomplete="off">
-                            {% csrf_token %}
-                            {{ form }}
-                            <button type="submit" class="btn btn-primary">Search!</button>
-                            {% if user.is_authenticated %}
-                                <button type="submit" class="btn btn-primary">Editar Perfil!</button>
-                            {% endif %}
-                        </form>
 
                 <div class="col">
                     <div class="col text-center align-self-center">
