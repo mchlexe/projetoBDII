@@ -17,6 +17,9 @@ from pymongo import MongoClient
 # def login(request):
 #     return render(request, 'login.html')
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def mapView(request):
     mongo_client = MongoClient()
     mongodb = mongo_client['LOOKING']
@@ -66,7 +69,7 @@ def mapView(request):
     #
     # print(looking)
     #
-    # return render(request, 'index.html', context)
+    return render(request, 'index.html', context)
 
 
 # def municipio(request, param):
