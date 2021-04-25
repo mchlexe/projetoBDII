@@ -1,15 +1,17 @@
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.shortcuts import render, get_object_or_404
-from django.db.models import F, Func
-from .models import Municipios, Estados
-from django.db import connection, connections
+from finalProject import settings
+from django.db import connections
 from .forms import TechForm
 from pymongo import MongoClient
+from django.views.decorators.cache import cache_page
 
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 mongo_client = MongoClient()
 # mongo_client = MongoClient('172.19.0.2', 27017)
 
+@cache_page(CACHE_TTL)
 def mapView(request):
     mongodb = mongo_client['LOOKING']
 
