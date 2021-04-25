@@ -21,14 +21,15 @@
 
                             <form action="" method="post" class="form-input user form-group">{% csrf_token %}
                                 <div class="form-group row">
-                                    <div class="col-sm align-self-center">
+                                    <div class="col-sm">
                                         <div class="item">
                                             {{ form }}
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit"  class="btn btn-primary btn-user btn-block" value="Cadastrar" />
-                                <br>
+
+                                <input type="submit"  class="btn btn-primary btn-user btn-block" value="Salvar" />
+                                <a href="{% url 'map' %}"><input class="btn btn-danger btn-user btn-block" value="Voltar" /></a>
                             </form>
                         </div>
                     </div>

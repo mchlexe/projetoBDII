@@ -7,9 +7,10 @@ from django.db import connection, connections
 from .forms import TechForm
 from pymongo import MongoClient
 
+mongo_client = MongoClient()
+# mongo_client = MongoClient('172.19.0.2', 27017)
+
 def mapView(request):
-    #mongo_client = MongoClient()
-    mongo_client = MongoClient('172.19.0.2', 27017)
     mongodb = mongo_client['LOOKING']
 
     cursor = connections['postgis'].cursor()

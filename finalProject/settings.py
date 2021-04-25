@@ -90,10 +90,6 @@ DATABASES = {
         'USER': os.getenv('GEO_USER'),
         'PASSWORD': os.getenv('GEO_PASSWORD'),
     }
-    # 'mongodb': {
-    #     'ENGINE': 'djongo',
-    #     'NAME': 'LOOKING',
-    # }
 }
 
 
