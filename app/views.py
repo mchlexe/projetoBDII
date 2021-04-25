@@ -21,7 +21,7 @@ def mapView(request):
     cursor.execute("SELECT ST_AsSVG(EST.GEOM) FROM ESTADOS EST WHERE EST.NOME = %s", ['Paraíba'])
     svg_estado = cursor.fetchone()
 
-    looking = mongodb.looking.find({})
+    looking = mongodb.looking.find({'ativo': True})
     svg_municipio = []
     perfis = []
 
@@ -29,8 +29,7 @@ def mapView(request):
 
     if form.is_valid():
         input = form.cleaned_data.get('tecnologia')
-        looking = mongodb['looking'].find({"tecnologias": {'$regex': input}})
-
+        looking = mongodb['looking'].find({"tecnologias": {'$regex': input, '$options': 'i'}})
     for each in looking:
         cursor.execute("SELECT ST_AsSVG(MUN.GEOM), MUN.NOME FROM MUNICIPIOS MUN WHERE MUN.NOME ILIKE %s AND MUN.SIGLA_UF LIKE 'PB'", [each['cidade']])
         svg = cursor.fetchone()
@@ -39,6 +38,9 @@ def mapView(request):
         perfis.append({
             'cidade': each['cidade'],
             'nome': each['nome'],
+            'email': each['email'],
+            'endereco': each['rua'] + ' - ' + str(each['numero']) + ' - ' + each['bairro'],
+            'bio': each['bio'],
             'tecnologias': each['tecnologias']
         })
 

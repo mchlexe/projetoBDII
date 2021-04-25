@@ -9,3 +9,4 @@ class ProfileForm(forms.Form):
     cidade = forms.CharField(label='Cidade')
     bio = forms.CharField(label='Bio')
     tecnologias = forms.CharField(label='Tecnologias')
+    ativo = forms.BooleanField(label='Perfil visível',required=False)

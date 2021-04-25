@@ -85,7 +85,7 @@
 {% for mun in svgMunicipio %}
     {% for svg in svgMunicipio %}
 <div class="modal fade" id="Modal{{ svg.cidade }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Perfis de {{ svg.cidade }}</h5>
@@ -97,11 +97,30 @@
         <div class="container">
             {% for perfil in perfis %}
                 {% if perfil.cidade == svg.cidade %}
-                    <div class="row justify-content-md-center">
-                        <div class="col">{{perfil.nome}}</div>
+                    </b><div id="nomePerfil" class="col text-center"><h5><b><i id="userIcon" class="fas fa-user-graduate"></i> {{perfil.nome}}</b></h5></div>
 
-                        <div class="col">{{perfil.tecnologias}}</div>
+                    <div class="row justify-content-md-center">
+                        <div class="col text-center"><b>Sobre:</b></div>
+                        <div class="col text-center">{{perfil.bio}}</div>
                     </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col text-center"><b>Endereço:</b></div>
+                        <div class="col text-center">{{perfil.endereco}}</div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col text-center"><b>Contato:</b></div>
+                        <div class="col text-center">{{perfil.email}}</div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col text-center"><b>Tecnologias:</b></div>
+                        <div class="col text-center">{{perfil.tecnologias}}</div>
+                    </div>
+
+
+                    <hr>
                 {% endif %}
             {% endfor %}
         </div>

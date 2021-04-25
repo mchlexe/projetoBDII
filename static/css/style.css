@@ -99,3 +99,11 @@ form.user .btn-user {
     margin-top: 2em;
     height: 3em;
 }
+
+#userIcon {
+    color: #33974f !important;
+}
+
+#nomePerfil {
+    color: black !important;
+}

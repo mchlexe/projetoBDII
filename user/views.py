@@ -45,6 +45,7 @@ def profile(request):
                     'cidade': perfil['cidade'],
                     'bio': perfil['bio'],
                     'tecnologias': perfil['tecnologias'],
+                    'ativo': perfil['ativo']
                 }
                 form = ProfileForm(info)
         else:
@@ -60,6 +61,7 @@ def profile(request):
             cidade = form.cleaned_data.get('cidade')
             bio = form.cleaned_data.get('bio')
             tecnologias = form.cleaned_data.get('tecnologias')
+            ativo = form.cleaned_data.get('ativo')
 
             json = {
                 'username': current_user.username,
@@ -70,7 +72,8 @@ def profile(request):
                 'bairro': bairro,
                 'cidade': cidade,
                 'bio': bio,
-                'tecnologias': tecnologias
+                'tecnologias': tecnologias,
+                'ativo': ativo
             }
 
             if temPerfil:
