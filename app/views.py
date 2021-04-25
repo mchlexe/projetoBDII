@@ -3,8 +3,9 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Func
 from .models import Municipios, Estados
-from django.db import connection
+from django.db import connection, connections
 from .forms import MunicipioForm
+from pymongo import MongoClient
 
 # Create your views here.
 # class IndexPageView(TemplateView):
@@ -17,6 +18,9 @@ from .forms import MunicipioForm
 #     return render(request, 'login.html')
 
 def mapView(request):
+    mongo_client = MongoClient()
+    mongodb = mongo_client['LOOKING']
+
     form = MunicipioForm(request.POST or None)
     viewbox = ['']
     svg_municipio = ['']
@@ -25,10 +29,10 @@ def mapView(request):
     if form.is_valid():
         input = form.cleaned_data.get('municipio')
 
-        municipio = get_object_or_404(Municipios, nome__icontains=input, sigla_uf='PB') #__icontains = ILIKE
-        estado = get_object_or_404(Estados, sigla_uf=municipio.sigla_uf)
+        municipio = Municipios.objects.using('postgis').get(nome__icontains=input, sigla_uf='PB') #__icontains = ILIKE
+        estado = Estados.objects.using('postgis').get(sigla_uf=municipio.sigla_uf)
 
-        cursor = connection.cursor()
+        cursor = connections['postgis'].cursor()
         cursor.execute("SELECT getViewBox(%s)", [estado.nome])
         viewbox = cursor.fetchone()
 
@@ -45,7 +49,24 @@ def mapView(request):
         'form': form
     }
 
-    return render(request, 'index.html', context)
+    #test = User.objects.using('mongodb').all().first() #.get(codigo=1)
+
+    #looking = mongodb['looking'].find_one({"nome": {'$regex': 'ch'}})
+
+    # looking = mongodb.looking
+    #
+    # user = {
+    #     'codigo': 2,
+    #     'nome': 'Test',
+    #     'django': 0,
+    #     'java': 1
+    # }
+    #
+    # looking = looking.insert_one(user).inserted_id
+    #
+    # print(looking)
+    #
+    # return render(request, 'index.html', context)
 
 
 # def municipio(request, param):
