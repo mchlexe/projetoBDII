@@ -79,3 +79,7 @@ section {
     border-radius: 0 0 2px 2px;
     background-color: #FFF;
 }
+
+.municipio {
+    cursor: pointer;
+}

@@ -1,24 +1,54 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    Map!
+    Mapa
 {% endblock title %}
 
 {% block content %}
+    <div class="container">
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <br>
+            <div class="col-lg-5 d-none d-lg-block bg-image align-self-center">
+                <a href="{% url 'map' %}"><img src="{% static 'images/logo2.png' %}" class="img-fluid logo"/></a>
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="row ">
+                    <div class="col text-center">
+                          <button type="submit" class="btn btn-primary">Editar perfil</button>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col text-center">
+                          <button type="submit" class="btn btn-danger">Logout</button>
+                    </div>
+
+                </div>
+            {% endif %}
+            <br>
+        </div>
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+
             <div class="row justify-content-md-center">
 
-                <div class="col-lg-5 d-none d-lg-block">
-                    <svg id="vb" width="500" height="500" viewBox="{{ viewbox }}">
-                        <path stroke="#33974f" fill="none" stroke-width="0.02" id="estado" d="{{ svgEstado }}"/>
-                        <path stroke="gray" fill="#33974f" stroke-width="0.01" id="municipio" d="{{ svgMunicipio }}"/>
-                    </svg>
+                <div class="col">
+
+                        <div class="p-5">
+
+                            <form action="" method="POST" autocomplete="off">
+                                {% csrf_token %}
+                                {{ form }}
+                                <br>
+                                <div class="col text-center">
+                                <button type="submit" class="btn btn-primary">Pesquisar</button></div>
+                            </form>
 
                 </div>
                 <div class="col-lg-7">
                     <div class="p-5">
-
                         <form action="" method="POST" autocomplete="off">
                             {% csrf_token %}
                             {{ form }}
@@ -27,11 +57,79 @@
                                 <button type="submit" class="btn btn-primary">Editar Perfil!</button>
                             {% endif %}
                         </form>
-                        <br>
 
+                <div class="col">
+                    <div class="col text-center align-self-center">
+                        <br>
+                        <h3 id="hide"><br></h3>
                     </div>
+                        <svg id="vb" width="500" height="350" viewBox="{{ viewbox }}">
+                            <path stroke="#33974f" fill="none" stroke-width="0.02" id="estado" d="{{ svgEstado }}"/>
+                            {% for mun in svgMunicipio %}
+                                {% for svg in svgMunicipio %}
+                                    <a class="municipio" id="{{ svg.cidade }}" data-bs-toggle="modal" data-bs-target="#Modal{{ svg.cidade }}"><path stroke="black" fill="#33974f" stroke-width="0.005"  d="{{ svg.svg }}"/></a>
+                                {% endfor %}}
+                            {% endfor %}
+                        </svg>
                 </div>
             </div>
+        </div>
     </div>
+
+
+<!-- Modal -->
+{% for mun in svgMunicipio %}
+    {% for svg in svgMunicipio %}
+<div class="modal fade" id="Modal{{ svg.cidade }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Perfis de {{ svg.cidade }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="container">
+            {% for perfil in perfis %}
+                {% if perfil.cidade == svg.cidade %}
+                    <div class="row justify-content-md-center">
+                        <div class="col">{{perfil.nome}}</div>
+
+                        <div class="col">{{perfil.tecnologias}}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}}
+{% endfor %}
+
+<script>
+
+    $('.municipio').mouseover(function() {
+       $('#hide').html(this.id);
+    });
+
+    $('.municipio').mouseout(function() {
+       $('#hide').html('<br>');
+    });
+    //
+    // $('.municipio').click(function() {
+    //    $('.modal-title').html(this.id);
+    // });
+
+    // function mouseOver() {
+//     $("#hide").html(content);
+// }
+
+</script>
 
 {% endblock content %}}

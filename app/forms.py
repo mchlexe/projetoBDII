@@ -1,4 +1,6 @@
 from django import forms
 
-class MunicipioForm(forms.Form):
-    municipio = forms.CharField(label='Informe um municipio')
+
+class TechForm(forms.Form):
+    tecnologia = forms.CharField(label='Filtre por tecnologia:')
+
