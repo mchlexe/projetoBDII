@@ -143,14 +143,13 @@
     $('.municipio').mouseout(function() {
        $('#hide').html('<br>');
     });
-    //
-    // $('.municipio').click(function() {
-    //    $('.modal-title').html(this.id);
-    // });
 
-    // function mouseOver() {
-//     $("#hide").html(content);
-// }
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#looking';
+        window.location.reload();
+    }
+}
 
 </script>
 

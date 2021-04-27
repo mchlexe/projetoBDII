@@ -161,6 +161,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-LOGIN_REDIRECT_URL = 'map'
+LOGIN_REDIRECT_URL = 'index'
 
-LOGOUT_REDIRECT_URL = 'map'
+LOGOUT_REDIRECT_URL = 'index'

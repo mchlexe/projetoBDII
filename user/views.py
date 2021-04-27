@@ -2,15 +2,16 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.core.cache import cache
 from django.views.generic import CreateView
 from pymongo import MongoClient
-
 from user.forms import ProfileForm
 from django.shortcuts import render
-import sqlite3
+from django.core.cache import cache
+from django.shortcuts import redirect
 
 mongo_client = MongoClient()
+
+
 # mongo_client = MongoClient('172.19.0.2', 27017)
 
 class Register(CreateView):
@@ -20,6 +21,7 @@ class Register(CreateView):
 
 
 def index(request):
+    cache.clear()
     return redirect('map')
 
 
@@ -80,10 +82,8 @@ def profile(request):
             if temPerfil:
                 looking.delete_one({'username': current_user.username})
                 looking = looking.insert_one(json).inserted_id
-                print(json)
             else:
                 looking = looking.insert_one(json).inserted_id
-                print('nao')
 
             cache.clear()
 
@@ -92,3 +92,4 @@ def profile(request):
     }
 
     return render(request, 'profile.html', context)
+
